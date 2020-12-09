@@ -1,12 +1,12 @@
-# Nakama Commands
+# Itme-platform Commands
 
-Day to day operation of Nakama is straightforward, requiring minimal intervention. There are just three nakama commands that you’ll need.
+Day to day operation of Itme-platform is straightforward, requiring minimal intervention. There are just three nakama commands that you’ll need.
 
 Running the `nakama` command by itself will start the server with the default configuration. You can [override the configuration](#config-override) used using command line flags.
 
 ## `migrate`
 
-The Nakama binary contains the schema and a way to upgrade an existing database schema. When you first run Nakama, you need to setup the database schema that Nakama interacts with. Similarly, when a new Nakama version is released, you need to migrate the data schema to that of the new version.
+The Itme-platform binary contains the schema and a way to upgrade an existing database schema. When you first run Itme-platform, you need to setup the database schema that Itme-platform interacts with. Similarly, when a new Itme-platform version is released, you need to migrate the data schema to that of the new version.
 
 | Command          | description
 | -------          | -----------
@@ -23,18 +23,18 @@ The Nakama binary contains the schema and a way to upgrade an existing database 
 <!--
 ## `doctor`
 
-Nakama ships with a built-in diagnostic tool which is particularly useful when you need support or otherwise are looking to diagnose an issue.
+Itme-platform ships with a built-in diagnostic tool which is particularly useful when you need support or otherwise are looking to diagnose an issue.
 
-Running `nakama doctor` generates a report that details the server's configuration and environment. By default, the diagnostic tool looks for a Nakama node to connect to on the local machine, but this can be changed:
+Running `nakama doctor` generates a report that details the server's configuration and environment. By default, the diagnostic tool looks for a Itme-platform node to connect to on the local machine, but this can be changed:
 
 | Flags     | description
 | -----     | -----------
-| `host`    | The host running the Nakama instance you want to diagnose. Default value is `127.0.0.1`.
+| `host`    | The host running the Itme-platform instance you want to diagnose. Default value is `127.0.0.1`.
 | `limit`   | Dashboard port used by nakama. Default value is 7351.
 -->
 ## Config override
 
-Nakama comes with a default configuration which can be overriden by using a [YML Configuration](install-configuration.md) file or by passing command line flags like below:
+Itme-platform comes with a default configuration which can be overriden by using a [YML Configuration](install-configuration.md) file or by passing command line flags like below:
 
 ```shell
 nakama --config path/to/config.yml --database.address root@localhost:26257 --database.address root@machine-2:26257

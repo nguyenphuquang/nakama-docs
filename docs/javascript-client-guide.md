@@ -4,7 +4,7 @@ The official JavaScript client handles all communication in realtime with the se
 
 ## Download
 
-The client is available on <a href="https://www.npmjs.com/package/@heroiclabs/nakama-js" target="\_blank">NPM</a>, Bower and on the GitHub <a href="https://github.com/heroiclabs/nakama-js/releases/latest" target="\_blank">releases page</a>. You can download `nakama-js.umd.js` which contains the Nakama-js module and UMD module loader.
+The client is available on <a href="https://www.npmjs.com/package/@heroiclabs/nakama-js" target="\_blank">NPM</a>, Bower and on the GitHub <a href="https://github.com/heroiclabs/nakama-js/releases/latest" target="\_blank">releases page</a>. You can download `nakama-js.umd.js` which contains the Itme-platform-js module and UMD module loader.
 
 If you are using NPM simply add the dependency to your "package.json":
 
@@ -28,12 +28,12 @@ When you've [downloaded](#download) the "nakama-js.umd.js" file you should impor
 The client object is used to execute all logic against the server. In your main JavaScript function you'll need to create a client object:
 
 ```js
-var client = new nakamajs.Client("defaultkey", "127.0.0.1", "7350");
+var client = new nakamajs.Client("defaultkey", "127.0.0.1", 7350);
 client.ssl = false;
 ```
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and "7350" to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 to connect to a local Itme-platform server.
 
 ```js
 var client = new nakamajs.Client("defaultkey");
@@ -51,7 +51,7 @@ To authenticate you should follow our recommended pattern in your client code:
 const client = new nakamajs.Client("defaultkey");
 ```
 
-&nbsp;&nbsp; 2\. Authenticate a user. By default Nakama will try and create a user if it doesn't exist.
+&nbsp;&nbsp; 2\. Authenticate a user. By default Itme-platform will try and create a user if it doesn't exist.
 
 If you are in an environment that supports `localStorage` then use the following code to store the session:
 
@@ -129,13 +129,18 @@ socket.onchannelmessage = (channelMessage) => {
 };
 
 const channelId = "pineapple-pizza-lovers-room";
-const persistence = false;
-const hidden = false;
-
-var response = await socket.joinChat(channelId, 1, persistence, hidden);
+var response = await socket.send({ channel_join: {
+  type: 1, // 1 = room, 2 = Direct Message, 3 = Group
+  target: channelId,
+  persistence: false,
+  hidden: false
+} });
 console.info("Successfully joined channel:", response.channel.id);
 
-const messageAck = await socket.writeChatMessage(response.channel.id, {"message": "Pineapple doesn't belong on a pizza!"});
+const messageAck = await socket.send({ channel_message_send: {
+  channel_id: response.channel.id,
+  content: {"message": "Pineapple doesn't belong on a pizza!"}
+} });
 console.info("Successfully sent chat message:", messageAck);
 ```
 

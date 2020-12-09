@@ -1,75 +1,65 @@
-[nakama_logo]: images/nakama-logo.png "Nakama Logo"
+[itme-platform_logo]: images/itme-platform-logo.png "Itme-platform Logo"
 
-# Nakama server
+# Itme-platform server
 
-![Nakama Logo][nakama_logo]
+Itme-platform là một server mạng xã hội, game thời gian thực.
 
-Nakama is a scalable server for social and realtime games and apps.
+Với Itme-platform, bạn có thể đăng nhập, kết bạn, lưu trữ và trao đổi dữ liệu giữa các ứng dụng và game. Itme-platform là 1 server đóng gói, cho phép bạn mở rộng bằng cách viết thêm các plugin nên rất thích hợp trong việc kết nối với các hạ tầng hoặc ứng dụng có sẵn, bổ sung thêm các chức năng gamification và đưa mini-games vào trong ứng dụng đang có.
 
-With Nakama server you can add user authentication, social networking, storage, and realtime data exchange into your apps and games. It is developed by <a href="https://heroiclabs.com" target="\_blank">Heroic Labs</a> to handle the difficult but essential services that go into all social and realtime games and apps.
+Server được thiết kế để có thể scale cho số lượng lớn người dùng.
 
-The server is designed to run at massive scale. Nakama works as a <a href="https://heroiclabs.com/nakama-enterprise/" target="\_blank">distributed cluster</a> so when your game or app gets featured in the App Store then all you need do is launch a few more instances and you'll handle the extra load with ease.
+Trong quá trình phát triển, bạn có thể chạy server trên các hệ điều hành macOS, Linux hay Windows. Khi deploy cho môi trường production, bạn có thể sử dụng docker để deploy một cách nhanh chóng và dễ dàng.
 
-During development you can run the server on your macOS, Linux, or Windows machine. When it's time to move into production either move into the cloud or use the Heroic Labs <a href="https://heroiclabs.com/managed-cloud/" target="\_blank">Managed cloud</a> service.
+## Các tính năng chính
 
-## Features
-
-You get to focus on building your project while the server handles all [user accounts](user-accounts.md), [social profiles](authentication.md#social-providers), [realtime chat](social-realtime-chat.md), [data storage](storage-collections.md), [multiplayer matches](gameplay-multiplayer-realtime.md), and lots more.
+Bạn chỉ cần tập trung vào phát triển logic, server của chúng tôi sẽ xử lý tất cả các phần còn lại, bao gồm [user accounts](user-accounts.md), [social profiles](authentication.md#social-providers), [realtime chat](social-realtime-chat.md), [data storage](storage-collections.md), [multiplayer matches](gameplay-multiplayer-realtime.md), và nhiều chức năng khác nữa.
 
 <div style="display: flex">
   <div style="flex: 1; margin: 0 1em 0 0">
     <strong>User accounts</strong>
-    <p>Every <a href="./user-accounts/">user</a> is registered and has a profile for other users to find and become friends with or join groups and chat.</p>
+    <p>Mỗi <a href="./user-accounts/">user</a> được đăng ký có 1 tài khoản lưu trữ các thông tin về điểm số, gold, coin và có thể kết bạn với các user khác cũng như tham gia vào các nhóm chat.</p>
   </div>
   <div style="flex: 1">
     <strong>Friends</strong>
-    <p><a href="./social-friends/">Friends</a> are a great way to build a social community.</p>
+    <p><a href="./social-friends/">Bạn bè</a> là phương thức hiệu quả nhất để xây dựng cộng đồng.</p>
   </div>
 </div>
 
 <div style="display: flex">
   <div style="flex: 1; margin: 0 1em 0 0">
-    <strong>Groups and Clans</strong>
-    <p>A <a href="./social-groups-clans/">group</a> brings together a bunch of users into a small community or team.</p>
+    <strong>Groups &amp; Clans</strong>
+    <p><a href="./social-groups-clans/">Group</a> tập hợp người dùng thành các cộng đồng nhỏ hoặc xây dựng đội nhóm trong game.</p>
   </div>
   <div style="flex: 1">
     <strong>Realtime chat</strong>
-    <p>Users can <a href="./social-realtime-chat/">chat</a> with each other 1-on-1, as part of a group, and in chat rooms.</p>
+    <p>Người dùng có thể <a href="./social-realtime-chat/">chat</a> với người khác theo các chế độ: chát 1 vs 1, chat trong group hoặc trong chat room.</p>
   </div>
 </div>
 
 <div style="display: flex">
   <div style="flex: 1; margin: 0 1em 0 0">
     <strong>In-app notifications</strong>
-    <p><a href="./social-in-app-notifications/">In-app notifications</a> make it easy to broadcast a message to one or more users.</p>
+    <p><a href="./social-in-app-notifications/">In-app notifications</a> giúp bạn dễ dàng gửi thông điệp từ user đến các user khác.</p>
   </div>
   <div style="flex: 1">
     <strong>Leaderboards</strong>
-    <p><a href="./gameplay-leaderboards/">Leaderboards</a> are a great way to add a social and competitive element to any game.</p>
+    <p><a href="./gameplay-leaderboards/">Leaderboards</a> là cách thức hiệu quả nhất để tăng tính cạnh tranh trong các game và app của bạn.</p>
   </div>
 </div>
 
 <div style="display: flex">
   <div style="flex: 1; margin: 0 1em 0 0">
     <strong>Matchmaker</strong>
-    <p>The <a href="./gameplay-matchmaker/">matchmaker</a> makes it easy in realtime and turn-based games to find active opponents to play against.</p>
+    <p><a href="./gameplay-matchmaker/">Matchmaker</a> người dùng dễ dàng tìm được bạn chơi trong các game thời gian thực hoặc game theo lượt.</p>
   </div>
   <div style="flex: 1">
     <strong>Multiplayer</strong>
-    <p>The <a href="./gameplay-multiplayer-realtime/">multiplayer engine</a> makes it easy for users to set up and join matches where they can rapidly exchange data with opponents.</p>
+    <p><a href="./gameplay-multiplayer-realtime/">Multiplayer engine</a> giúp bạn dễ dàng phát triển các game nhiều người chơi, Game Platform sẽ quảng lý việc thiết lập các trận đấu, trao đổi dữ liệu giữa nhiều người chơi trong trận đấu đó.</p>
   </div>
 </div>
 
 __Server-side code__
 
-The server integrates the Lua programming language as a fast embedded [code runtime](runtime-code-basics.md).
+Để bổ sung logic cho server, bạn có thể viết các plugin bằng [ngôn ngữ Lua](runtime-code-basics.md).
 
 This is useful to run custom logic which isn't running on the device or browser. The code you deploy with the server can be used immediately by clients so you can change behavior on the fly and add new features faster.
-
-## Next steps
-
-Build the next big hit for mobile, console, desktop, and web with Nakama. We have first-class game engine integration including [Unity](unity-client-guide.md) for ease of development.
-
-To get the most out of Nakama you should follow the rest of this guide. And if you need help <a href="mailto:support@heroiclabs.com">get in touch</a> with the Heroic Labs team about our developer training.
-
-The first step to building your project with Nakama is to [install it](install-docker-quickstart.md).

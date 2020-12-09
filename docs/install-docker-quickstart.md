@@ -1,27 +1,26 @@
 # Docker quickstart
 
-To start developing with Nakama, you’ll first need to install it on your development machine. It’s straightforward and takes just a few minutes. In this guide we’re going to focus on installing your Nakama development instance using Docker.
+To start developing with Itme-platform, you’ll first need to install it on your development machine. It’s straightforward and takes just a few minutes. In this guide we’re going to focus on installing your Itme-platform development instance using Docker.
 
 !!! summary "Recommended Approach"
-    Docker is the quickest way to download and get started with Nakama for development purposes. For production settings, we recommend that you install Nakama as a [binary](install-binary.md) to ensure all system resources are available to Nakama.
+    Docker is the quickest way to download and get started with Itme-platform for development purposes. For production settings, we recommend that you install Itme-platform as a [binary](install-binary.md) to ensure all system resources are available to Itme-platform.
 
-There is a single, minimal Nakama image that contains the Nakama binary. The basic format is:
+There is a single, minimal Itme-platform image that contains the Itme-platform binary. The basic format is:
 
-=== "Shell"
-	```shell
-	docker run heroiclabs/nakama <command> [options]
-	```
+```shell tab="Shell"
+docker run heroiclabs/nakama <command> [options]
+```
 
 !!! note "Database server"
-    Nakama requires a database server running. Make sure you start the database before Nakama, or [use docker-compose to run both](#running-nakama-with-docker-compose).
+    Itme-platform requires a database server running. Make sure you start the database before Itme-platform, or [use docker-compose to run both](#running-nakama-with-docker-compose).
 
-Installing Nakama using Docker is ideal for a few reasons, including:
+Installing Itme-platform using Docker is ideal for a few reasons, including:
 
 - you install to a pristine environment
 
 - you get everything you need in one go, including CockroachDB
 
-- you can take snapshots, re-install and remove Nakama without affecting your primary operating system.
+- you can take snapshots, re-install and remove Itme-platform without affecting your primary operating system.
 
 - It also means that the installation instructions are the same whether your development machine runs Windows, MacOS and Linux.
 
@@ -29,7 +28,7 @@ Installing Nakama using Docker is ideal for a few reasons, including:
 
 If you’re new to Docker, then here’s what you need to know: Docker is an open source containerization tool that lets you create multiple distinct Linux environments, each separate from the other.
 
-In a Docker container you run a suite of tools to do a particular job; in this case we’ll have one container running Nakama and another running CockroachDB. You can think of Docker containers as lightweight virtual machines.
+In a Docker container you run a suite of tools to do a particular job; in this case we’ll have one container running Itme-platform and another running CockroachDB. You can think of Docker containers as lightweight virtual machines.
 
 - Follow this [guide](https://www.docker.com/community-edition), if you are trying to install Docker on Mac, Linux and Windows 10 Pro edition.
 
@@ -37,117 +36,113 @@ In a Docker container you run a suite of tools to do a particular job; in this c
 
 - Use the [Docker Store](https://store.docker.com/search?offering=community&q=&type=edition) to find the right version of Docker Community Edition for your environment.
 
-# Running Nakama
+# Running Itme-platform
 
-There are 2 ways to run Nakama and Cockroach:
+There are 2 ways to run Itme-platform and Cockroach:
 
  1. Without Docker Compose
  2. With Docker Compose
 
-## Running Nakama without Docker Compose
+## Running Itme-platform without Docker Compose
 
-You can run Nakama and Cockroach without using Docker-Compose. This will mean you have greater control over how they are started, and various data volumes options but in return, you'll have to configure the two containers:
+You can run Itme-platform and Cockroach without using Docker-Compose. This will mean you have greater control over how they are started, and various data volumes options but in return, you'll have to configure the two containers:
 
-=== "Shell"
-	```shell
-	# Let's pull and start CockroachDB
-	docker run --name=db -p 26257 -p 8080 cockroachdb/cockroach start --insecure
-	# Let's pull and migrate the database
-	docker run --link=db heroiclabs/nakama migrate up --database.address root@db:26257
-	# start Nakama server
-	docker run --link=db -p 7350:7350 -p 7351:7351 heroiclabs/nakama --database.address root@db:26257
-	```
+```shell tab="Shell"
+# Let's pull and start CockroachDB
+docker run --name=db -p 26257 -p 8080 cockroachdb/cockroach start --insecure
+# Let's pull and migrate the database
+docker run --link=db heroiclabs/nakama migrate up --database.address root@db:26257
+# start Itme-platform server
+docker run --link=db -p 7350:7350 -p 7351:7351 heroiclabs/nakama --database.address root@db:26257
+```
 
 Connect to the database SQL shell using the following command:
 
-=== "Shell"
-	```shell
-	docker exec -it "db" /cockroach/cockroach sql --insecure -d nakama
-	```
+```shell tab="Shell"
+docker exec -it "db" /cockroach/cockroach sql --insecure -d nakama
+```
 
-You can also change Nakama config options simply by editing the last line. For instance:
+You can also change Itme-platform config options simply by editing the last line. For instance:
 
 ```
 docker run --link=db -p 7350:7350 -p 7351:7351 heroiclabs/nakama --database.address root@db:26257 --config /path/to/config.yml --socket.server_key "mynewkey"
 ```
 
-## Running Nakama with docker-compose
+## Running Itme-platform with docker-compose
 
-Docker Compose simplifies running more than one Docker container in conjunction. For Nakama, we’ll need two containers: one for Nakama itself and one for the database it relies on, CockroachDB.
+Docker Compose simplifies running more than one Docker container in conjunction. For Itme-platform, we’ll need two containers: one for Itme-platform itself and one for the database it relies on, CockroachDB.
 
-You can choose to configure the Nakama and CockroachDB containers without Docker Compose but we do not recommend it when you’re starting out.
+You can choose to configure the Itme-platform and CockroachDB containers without Docker Compose but we do not recommend it when you’re starting out.
 
 Docker Compose uses YAML configuration files to declare which containers to use and how they should work together.
 
-1\. Let’s start by creating the Nakama Docker-Compose file:
+1\. Let’s start by creating the Itme-platform Docker-Compose file:
 
 Create a file called `docker-compose.yml` and edit it in your favourite text editor:
 
-=== "docker-compose.yml"
-	```yaml
-	version: '3'
-	services:
-	  cockroachdb:
-	    container_name: cockroachdb
-	    image: cockroachdb/cockroach:v19.2.5
-	    command: start --insecure --store=attrs=ssd,path=/var/lib/cockroach/
-	    restart: always
-	    volumes:
-	      - data:/var/lib/cockroach
-	    expose:
-	      - "8080"
-	      - "26257"
-	    ports:
-	      - "26257:26257"
-	      - "8080:8080"
-	  nakama:
-	    container_name: nakama
-	    image: heroiclabs/nakama:2.12.0
-	    entrypoint:
-	      - "/bin/sh"
-	      - "-ecx"
-	      - >
-	          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
-	          exec /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257
-	    restart: always
-	    links:
-	      - "cockroachdb:db"
-	    depends_on:
-	      - cockroachdb
-	    volumes:
-	      - ./:/nakama/data
-	    expose:
-	      - "7349"
-	      - "7350"
-	      - "7351"
-	    ports:
-	      - "7349:7349"
-	      - "7350:7350"
-	      - "7351:7351"
-	    healthcheck:
-	      test: ["CMD", "curl", "-f", "http://localhost:7350/"]
-	      interval: 10s
-	      timeout: 5s
-	      retries: 5
-	volumes:
-	  data:
-	```
+```yaml tab="docker-compose.yml"
+version: '3'
+services:
+  cockroachdb:
+    container_name: cockroachdb
+    image: cockroachdb/cockroach:v19.1.5
+    command: start --insecure --store=attrs=ssd,path=/var/lib/cockroach/
+    restart: always
+    volumes:
+      - data:/var/lib/cockroach
+    expose:
+      - "8080"
+      - "26257"
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+  nakama:
+    container_name: nakama
+    image: heroiclabs/nakama:2.7.0
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
+          exec /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257
+    restart: always
+    links:
+      - "cockroachdb:db"
+    depends_on:
+      - cockroachdb
+    volumes:
+      - ./:/nakama/data
+    expose:
+      - "7349"
+      - "7350"
+      - "7351"
+    ports:
+      - "7349:7349"
+      - "7350:7350"
+      - "7351:7351"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7350/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  data:
+```
 
 !!! warning "Windows users"
-    If you are trying to run Nakama via Docker-Compose on Windows, you'll need to make a small change to the downloaded `docker-compose.yml` file. Follow this [instruction](#data) to bind the correct path.
+    If you are trying to run Itme-platform via Docker-Compose on Windows, you'll need to make a small change to the downloaded `docker-compose.yml` file. Follow this [instruction](#data) to bind the correct path.
 
     If logging output does not immediately appear in stdout add `tty: true` to the `nakama` service in your `docker-compose.yml` file.
 
 2\. Next, we’ll ask Docker Compose to follow the instructions in the file we just downloaded:
 
-=== "Shell"
-	```shell
-	docker-compose -f docker-compose.yml up
-	```
+```shell tab="Shell"
+docker-compose -f docker-compose.yml up
+```
 
-Docker Compose will download the latest CockroachDB and Nakama images published on Docker Hub.
+Docker Compose will download the latest CockroachDB and Itme-platform images published on Docker Hub.
 
-3\. You now have both CockroachDB and Nakama running on your machine, available at `127.0.0.1:26257` and `127.0.0.1:7350` respectively.
+3\. You now have both CockroachDB and Itme-platform running on your machine, available at `127.0.0.1:26257` and `127.0.0.1:7350` respectively.
 
 ### Data
 
@@ -155,14 +150,13 @@ Docker containers are ephemeral by design: when you remove the container, you lo
 
 For development purposes, we suggest that you bind a folder in the local machine's filesystem to the Docker file system. The easiest way to achieve this is by editing the `docker-compose.yml` file:
 
-=== "docker-compose.yml"
-	```yaml hl_lines="4"
-	...
-	  nakama:
-	    volumes:
-	      - ./nakama/data:/nakama/data # Edit this line
-	...
-	```
+``` yaml hl_lines="4" tab="docker-compose.yml"
+...
+  nakama:
+    volumes:
+      - ./nakama/data:/nakama/data # Edit this line
+...
+```
 
 - On Mac and Linux systems, the path highlighted above will create a folder called `nakama` in the same directory as where you are running `docker-compose` from.
 - On Windows, you'll need to update the path above so that Docker can bind the folder properly. A valid value can look like this:
@@ -174,45 +168,43 @@ For development purposes, we suggest that you bind a folder in the local machine
 
     `ERROR: for bin_nakama_1 Cannot create container for service nakama: Drive has not been shared`
 
-    Make sure to change the line highlighted above to the correct path and restart Nakama.
+    Make sure to change the line highlighted above to the correct path and restart Itme-platform.
 
-You can put your Lua scripts in the `/modules` directory and restart Nakama using `docker-compose restart`.
+You can put your Lua scripts in the `/modules` directory and restart Itme-platform using `docker-compose --restart`.
 
 ### Configuration
 
-You have two options to override Nakama's config when running via Docker-compose:
+You have two options to override Itme-platform's config when running via Docker-compose:
 
 - Add individual command line flags:
 
-=== "docker-compose.yml"
-	``` yaml hl_lines="8"
-	...
-	  nakama:
-	    entrypoint:
-	      - "/bin/sh"
-	      - "-ecx"
-	      - >
-	          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
-	          /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257 --socket.server_key "mynewkey"
-	...
-	```
+``` yaml hl_lines="8" tab="docker-compose.yml"
+...
+  nakama:
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
+          /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257 --socket.server_key "mynewkey"
+...
+```
 
 - Add configuration file
 
-Place your configuration file in the `data` volume we set up above and reference it to Nakama:
+Place your configuration file in the `data` volume we set up above and reference it to Itme-platform:
 
-=== "docker-compose.yml"
-	``` yaml hl_lines="8"
-	...
-	  nakama:
-	    entrypoint:
-	      - "/bin/sh"
-	      - "-ecx"
-	      - >
-	          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
-	          /nakama/nakama --config /nakama/data/config.yml
-	...
-	```
+``` yaml hl_lines="8" tab="docker-compose.yml"
+...
+  nakama:
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+          /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
+          /nakama/nakama --config /nakama/data/config.yml
+...
+```
 
 ### Logs
 Logs generated within the containers are printed to the console as part of the docker-compose output, and you can access them with `docker-compose logs` from within the same the directory as the `docker-compose.yml` file.
@@ -220,19 +212,17 @@ Logs generated within the containers are printed to the console as part of the d
 ### Opening SQL Shell
 You can open a SQL shell to the database to inspect and manipulate data directly if you'd like.
 
-If you are running Nakama via Docker-Compose, try the following commands:
+If you are running Itme-platform via Docker-Compose, try the following commands:
 
-=== "Shell"
-	```shell
-	docker ps
-	```
+```shell tab="Shell"
+docker ps
+```
 
 Grab the name of the running container that matches the description above, and then run this command:
 
-=== "Shell"
-	```shell
-	docker exec -it "cockroachdb" /cockroach/cockroach sql --insecure -d nakama
-	```
+```shell tab="Shell"
+docker exec -it "cockroachdb" /cockroach/cockroach sql --insecure -d nakama
+```
 
 Where `cockroachdb` is the name of the container taken from the first command.
 
@@ -246,9 +236,9 @@ You can re-activate them by running `docker-compose up`.
 
 To stop the containers and purge all stored data, run `docker-compose down`.
 
-## Connecting the Nakama client
+## Connecting the Itme-platform client
 
-Once Nakama is running via Docker, use the following connection detail to configure your client to connect to the server:
+Once Itme-platform is running via Docker, use the following connection detail to configure your client to connect to the server:
 
 **Host**: `127.0.0.1` (or `localhost`)
 **Port** : `7350`
@@ -257,8 +247,7 @@ Once Nakama is running via Docker, use the following connection detail to config
 
 In the JavaScript client, you can create a `client` like this:
 
-=== "JavaScript"
-	```js
-	var client = new nakamajs.Client("defaultkey", "127.0.0.1", 7350);
-	client.ssl = false;
-	```
+```js tab="JavaScript"
+var client = new nakamajs.Client("defaultkey", "127.0.0.1", 7350);
+client.ssl = false;
+```

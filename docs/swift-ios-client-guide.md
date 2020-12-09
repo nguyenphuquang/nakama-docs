@@ -2,8 +2,8 @@
 
 The official Swift client handles all communication in realtime with the server and is specifically optimized for iOS projects. It implements all features in the server and is compatible with Swift 3.1+. To work with the Swift client you'll need the <a href="https://swift.org/download/" target="\_blank">Swift distribution</a> and an editor/IDE like Atom or <a href="https://itunes.apple.com/app/xcode/id497799835" target="\_blank">XCode 8.3+</a>.
 
-!!! info "Compatibility with Nakama 2"
-    This client guide is only available for Nakama 1 and has not yet been updated to support Nakama 2. Leave a comment on [this GitHub issue](https://github.com/heroiclabs/nakama-swift/issues/6) if you are interested in using this client with Nakama 2.
+!!! info "Compatibility with Itme-platform 2"
+    This client guide is only available for Itme-platform 1 and has not yet been updated to support Itme-platform 2. Leave a comment on [this GitHub issue](https://github.com/heroiclabs/nakama-swift/issues/6) if you are interested in using this client with Itme-platform 2.
 
 ## Download
 
@@ -24,7 +24,7 @@ Add the client as a dependency to your "Podfile":
 
 ```ruby
 use_frameworks!
-pod 'Nakama', '~> 0.2'
+pod 'Itme-platform', '~> 0.2'
 ```
 
 Ensure that the dependencies are built as Frameworks. Download and integrate it into your Xcode project:
@@ -39,10 +39,10 @@ Add the client as a dependency to your "Package.swift" file.
 
 ```swift
 let package = Package(
-	// ...
-	dependencies: [
-	.Package(url: "https://github.com/heroiclabs/nakama-swift.git", Version(0,2,0)),
-	]
+  // ...
+  dependencies: [
+    .Package(url: "https://github.com/heroiclabs/nakama-swift.git", Version(0,2,0)),
+  ]
 )
 ```
 
@@ -51,25 +51,25 @@ let package = Package(
 The client object is used to execute all logic against the server.
 
 ```swift
-import Nakama
+import Itme-platform
 
 public class NakamaSessionManager {
-	private let client: Client;
+  private let client: Client;
 
-	init() {
-	client = Builder("defaultkey")
-		.host("127.0.0.1")
-		.port(7350)
-		.ssl(false)
-		.build()
-	}
+  init() {
+    client = Builder("defaultkey")
+        .host("127.0.0.1")
+        .port(7350)
+        .ssl(false)
+        .build()
+  }
 }
 ```
 
 You can also use the shorthand builder for the client.
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and 7350 to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 to connect to a local Itme-platform server.
 
 ```swift
 let client : Client = Builder.defaults(serverKey: "defaultkey")
@@ -92,26 +92,26 @@ let client : Client = Builder.defaults(serverKey: "defaultkey")
 !!! Tip
     It's good practice to cache a device identifier on iOS when it's used to authenticate because they can change with device OS updates.
 
-	```swift
-	let message = AuthenticateMessage(device: deviceId!)
-	client.login(with: message).then { session in
-	  // connect to the server with the session
-	}.catch{ err in
-	  if (err is NakamaError) {
-	    switch err as! NakamaError {
-	    case .userNotFound(_):
-	      self.client.register(with: message).then { session in
-	        // connect to the server with the session
-	      }.catch{ err in
-	        print("Could not register: %@", err)
-	      }
-	    default:
-	      break
-	    }
-	  }
-	  print("Could not login: %@", err)
-	}
-	```
+```swift
+let message = AuthenticateMessage(device: deviceId!)
+client.login(with: message).then { session in
+  // connect to the server with the session
+}.catch{ err in
+  if (err is NakamaError) {
+    switch err as! NakamaError {
+    case .userNotFound(_):
+      self.client.register(with: message).then { session in
+        // connect to the server with the session
+      }.catch{ err in
+        print("Could not register: %@", err)
+      }
+    default:
+      break
+    }
+  }
+  print("Could not login: %@", err)
+}
+```
 
 In the code above we use `AuthenticateMessage.device(id: deviceID)` but for other authentication options have a look at the [code examples](authentication.md#register-or-login).
 
@@ -145,11 +145,11 @@ var message = StorageWriteMessage()
 message.write(bucket: bucket, collection: "saves", key: "savegame", value: saveGame)
 message.write(bucket: bucket, collection: "saves", key: "mystats", value: myStats)
 client.send(message: message).then { list in
-	for recordId in list {
-	NSLog("Stored record has version '%@'", recordId.version)
-	}
+  for recordId in list {
+    NSLog("Stored record has version '%@'", recordId.version)
+  }
 }.catch { err in
-	NSLog("Error %@ : %@", err, (err as! NakamaError).message)
+  NSLog("Error %@ : %@", err, (err as! NakamaError).message)
 }
 ```
 
@@ -160,8 +160,8 @@ Have a look at other sections of documentation for more code examples.
 
 The client has listeners which are called on various events received from the server.
 
-	```java
-	```
+```java
+```
 
 Some events only need to be implemented for the features you want to use.
 
@@ -194,11 +194,11 @@ You can chain callbacks because each callback returns a `Promise<T>`. Each metho
 
 ```swift
 promise.then { _ in
-	return client.send(with: message)
+  return client.send(with: message)
 }.then { _ in
-	//...
+  //...
 }.catch { err in
-	NSLog("Error %@ : %@", err, (err as! NakamaError).message)
+  NSLog("Error %@ : %@", err, (err as! NakamaError).message)
 }
 ```
 
@@ -208,8 +208,8 @@ The [server](install-configuration.md#log) and the client can generate logs whic
 
 ```swift
 let client : Client = new Builder("defaultkey")
-	.trace(true)
-	.build();
+    .trace(true)
+    .build();
 ```
 
 Every error in the Swift client implements the `"NakamaError"` class. It contains details on the source and content of an error:
@@ -218,16 +218,16 @@ Every error in the Swift client implements the `"NakamaError"` class. It contain
 let promise = ...
 
 promise.catch { err in
-	if (err is NakamaError) {
-	switch err as! NakamaError {
-	case .storageRejected(let msg):
-		print("Storage rejected: %@", msg)
-	case ...
-	default:
-		break
-	}
-	}
-	print("Operation failed: %@", err)
+  if (err is NakamaError) {
+    switch err as! NakamaError {
+    case .storageRejected(let msg):
+      print("Storage rejected: %@", msg)
+    case ...
+    default:
+      break
+    }
+  }
+  print("Operation failed: %@", err)
 }
 ```
 
@@ -235,79 +235,79 @@ promise.catch { err in
 
 ```swift
 internal class NakamaSessionManager {
-	public let client : Client
-	private var session : Session?
+  public let client : Client
+  private var session : Session?
 
-	private static let defaults = UserDefaults.standard
-	private static let deviceKey = "device_id"
-	private static let sessionKey = "session"
+  private static let defaults = UserDefaults.standard
+  private static let deviceKey = "device_id"
+  private static let sessionKey = "session"
 
-	internal init() {
-	client = Builder.defaults(serverKey: "defaultkey")
-	}
+  internal init() {
+    client = Builder.defaults(serverKey: "defaultkey")
+  }
 
-	func start() {
-	restoreSessionAndConnect()
-	if session == nil {
-		loginOrRegister()
-	}
-	}
+  func start() {
+    restoreSessionAndConnect()
+    if session == nil {
+      loginOrRegister()
+    }
+  }
 
-	private func restoreSessionAndConnect() {
-	// Lets check if we can restore a cached session
-	let sessionString : String? = NakamaSessionManager.defaults.string(forKey: NakamaSessionManager.sessionKey)
-	if sessionString == nil {
-		return
-	}
+  private func restoreSessionAndConnect() {
+    // Lets check if we can restore a cached session
+    let sessionString : String? = NakamaSessionManager.defaults.string(forKey: NakamaSessionManager.sessionKey)
+    if sessionString == nil {
+      return
+    }
 
-	let session = DefaultSession.restore(token: sessionString!)
-	if session.isExpired(currentTimeSince1970: Date().timeIntervalSince1970) {
-		return
-	}
+    let session = DefaultSession.restore(token: sessionString!)
+    if session.isExpired(currentTimeSince1970: Date().timeIntervalSince1970) {
+      return
+    }
 
-	connect(with: session)
-	}
+    connect(with: session)
+  }
 
-	private func loginOrRegister() {
-	var deviceId : String? = NakamaSessionManager.defaults.string(forKey: NakamaSessionManager.deviceKey)
-	if deviceId == nil {
-		deviceId = UIDevice.current.identifierForVendor!.uuidString
-		NakamaSessionManager.defaults.set(deviceId!, forKey: NakamaSessionManager.deviceKey)
-	}
+  private func loginOrRegister() {
+    var deviceId : String? = NakamaSessionManager.defaults.string(forKey: NakamaSessionManager.deviceKey)
+    if deviceId == nil {
+      deviceId = UIDevice.current.identifierForVendor!.uuidString
+      NakamaSessionManager.defaults.set(deviceId!, forKey: NakamaSessionManager.deviceKey)
+    }
 
-	let message = AuthenticateMessage(device: deviceId!)
-	client.login(with: message).then { session in
-		NakamaSessionManager.defaults.set(session.token, forKey: NakamaSessionManager.sessionKey)
-		self.connect(with: session)
-		}.catch{ err in
-		if (err is NakamaError) {
-			switch err as! NakamaError {
-			case .userNotFound(_):
-			self.client.register(with: message).then { session in
-				self.connect(with: session)
-				}.catch{ err in
-				print("Could not register: %@", err)
-			}
-			return
-			default:
-			break
-			}
-		}
-		print("Could not login: %@", err)
-	}
-	}
+    let message = AuthenticateMessage(device: deviceId!)
+    client.login(with: message).then { session in
+      NakamaSessionManager.defaults.set(session.token, forKey: NakamaSessionManager.sessionKey)
+      self.connect(with: session)
+      }.catch{ err in
+        if (err is NakamaError) {
+          switch err as! NakamaError {
+          case .userNotFound(_):
+            self.client.register(with: message).then { session in
+              self.connect(with: session)
+              }.catch{ err in
+                print("Could not register: %@", err)
+            }
+            return
+          default:
+            break
+          }
+        }
+        print("Could not login: %@", err)
+    }
+  }
 
 
-	private func connect(with session: Session) {
-	client.connect(to: session).then { _ in
-		self.session = session
+  private func connect(with session: Session) {
+    client.connect(to: session).then { _ in
+      self.session = session
 
-		// Store session for quick reconnects.
-		NakamaSessionManager.defaults.set(session.token, forKey: NakamaSessionManager.sessionKey)
-		}.catch{ err in
-		print("Failed to connect to server: %@", err)
-	}
-	}
+      // Store session for quick reconnects.
+      NakamaSessionManager.defaults.set(session.token, forKey: NakamaSessionManager.sessionKey)
+      }.catch{ err in
+        print("Failed to connect to server: %@", err)
+    }
+  }
 }
 ```
 

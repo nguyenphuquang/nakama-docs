@@ -1,11 +1,11 @@
 # Send push messages
 
-Push messages are a great complement to [in-app notifications](social-in-app-notifications.md) in Nakama. You can use push messages to re-engage users who have either closed or backgrounded your app.
+Push messages are a great complement to [in-app notifications](social-in-app-notifications.md) in Itme-platform. You can use in-app notifications for when a user is online but for when the app is closed or backgrounded and you want to bring the user back or re-engage push messages are a great option.
 
-There are many different push providers you can integrate into your client code and Nakama, but for this tutorial we'll use the One Signal service. They provide an HTTP API to register devices and send push messages to segments of users.
+There are many different push providers available which you can integrate into your client code and combine it with the server but for this tutorial we'll use the One Signal service. They provide a HTTP API to register devices and send push messages to segments of users.
 
 !!! Tip
-    This tutorial covers an example One Signal integration using Nakama's Lua runtime. For Go consider using an [existing One Signal library](https://godoc.org/github.com/tbalthazar/onesignal-go).
+    This tutorial covers an example One Signal integration using Itme-platform's Lua runtime. For Go consider using an [existing One Signal library](https://godoc.org/github.com/tbalthazar/onesignal-go).
 
 ## Setup
 
@@ -15,11 +15,11 @@ We can easily write a Lua module which provides the One Signal HTTP API as a set
 
 Download and add the "onesignal.lua" file to the location you use for your Lua modules. You can put the files into whatever folder you like and specify the location when you run the server.
 
-```bash
+```
 nakama --runtime.path "/some/path/dir/"
 ```
 
-When your server is started you'll see the One Signal module loaded and recorded in the startup logs. In development it can be helpful to run the server with "--log.stdout" for log output in the console.
+When you server is started you'll see the One Signal module loaded and recorded in the startup logs. In development it can be helpful to run the server with "--log.stdout" for log output in the console.
 
 ### Keys and credentials
 
@@ -45,20 +45,20 @@ A device identifier which must be obtained through Android/iOS/etc APIs on the h
 
 ```lua
 --[[
-    "device_type" can be one of:
-    0 - ios
-    1 - android
-    2 - amazon
-    3 - windowsphone
-    ... etc.
+  "device_type" can be one of:
+  0 - ios
+  1 - android
+  2 - amazon
+  3 - windowsphone
+  ... etc.
 ]]--
 local device_type = 0
 -- "identifier" is the push identifier which must be sent from the client
 local identifier = "platformspecificdeviceidentifier"
 local language = "en"
 local tags = {
-    a = 1,
-    foo = "bar"
+  a = 1,
+  foo = "bar"
 }
 onesignal:add_device(device_type, identifier, language, tags)
 ```
@@ -69,20 +69,20 @@ We'll register an RPC hook which can be called via clients and receives the devi
 local nk = require("nakama")
 
 --[[
-    The payload input is expected to be structured as JSON:
-    { "DeviceType": 1, "Identifier": "somevalue" }
+  The payload input is expected to be structured as JSON:
+  { "DeviceType": 1, "Identifier": "somevalue" }
 ]]--
 local function register_push(context, payload)
-    local json = nk.json_decode(payload)
+  local json = nk.json_decode(payload)
 
-    local dt = json.DeviceType
-    local id = json.Identifier
-    local success, result = pcall(onesignal.add_device, dt, id, "en", {})
-    if (success) then
+  local dt = json.DeviceType
+  local id = json.Identifier
+  local success, result = pcall(onesignal.add_device, dt, id, "en", {})
+  if (success) then
     -- store the push "player id" from One Signal in the current user metadata
     local metadata = { os_player_id = result.id }
     pcall(nk.account_update_id, context.user_id, metadata) -- ignore errors
-    end
+  end
 end
 
 nk.register_rpc(register_push, "register_push")
@@ -102,16 +102,16 @@ It'll be most common to send push messages to segments via the One Signal dashbo
 
 ```lua
 local contents = {
-    en = "English message"
+  en = "English message"
 }
 local headings = {
-    en = "English title"
+  en = "English title"
 }
 local included_segments = { "All" }
 local filters = nil
 local player_ids = nil
 local params = {
-    excluded_segments = { "Banned" }
+  excluded_segments = { "Banned" }
 }
 onesignal:create_notification(
     contents, headings, included_segments, filters, player_ids, params)
@@ -123,15 +123,15 @@ Filters are used to specify included or excluded devices based on information wi
 
 ```lua
 local contents = {
-    en = "English message"
+  en = "English message"
 }
 local headings = {
-    en = "English title"
+  en = "English title"
 }
 local included_segments = nil
 local filters = {
-    { field = "tag", key = "level", relation = ">", value = "10" },
-    { field = "amount_spent", relation = ">", value = "0" }
+  { field = "tag", key = "level", relation = ">", value = "10" },
+  { field = "amount_spent", relation = ">", value = "0" }
 }
 local player_ids = nil
 local params = {}
@@ -148,21 +148,21 @@ As an example we'll retrieve the One Signal push identifier "os_player_id" which
 ```lua
 local player_ids = {}
 local user_ids = {
-    "3ea5608a-43c3-11e7-90f9-7b9397165f34",
-    "447524be-43c3-11e7-af09-3f7172f05936"
+  "3ea5608a-43c3-11e7-90f9-7b9397165f34",
+  "447524be-43c3-11e7-af09-3f7172f05936"
 }
 local users = nk.users_get_id(user_ids)
 for _, u in ipairs(users)
 do
-    -- get the onesignal id for each user
-    table.insert(player_ids, u.metadata.os_player_id)
+  -- get the onesignal id for each user
+  table.insert(player_ids, u.metadata.os_player_id)
 end
 
 local contents = {
-    en = "English message"
+  en = "English message"
 }
 local headings = {
-    en = "English title"
+  en = "English title"
 }
 local included_segments = nil
 local filters = nil

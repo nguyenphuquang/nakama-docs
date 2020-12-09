@@ -17,30 +17,30 @@ To use nakama-unreal in your Unreal project, you'll need to copy the nakama-unre
 
 1. Open your Unreal project folder (for example, `D:\\MyUnrealProject\\`) in Explorer or Finder.
 1. If one does not already exist, create a `Plugins` folder here.
-1. Copy the `Nakama` folder from the nakama-unreal release you downloaded, into this `Plugins` folder.
+1. Copy the `Itme-platform` folder from the nakama-unreal release you downloaded, into this `Plugins` folder.
 1. Now, edit your project's `.Build.cs` file, located in the project folder under `Source\\[ProjectFolder]` (for example, `D:\\MyUnrealProject\\Source\\MyUnrealProject\\MyUnrealProject.Build.cs`). Add this line to the constructor:
 
-`PrivateDependencyModuleNames.AddRange(new string[] { "Nakama" });`
+`PrivateDependencyModuleNames.AddRange(new string[] { "Itme-platform" });`
 
 So, you might end up with the file that looks something like this:
 
-```csharp
+```c#
 using UnrealBuildTool;
 
 public class MyUnrealProject : ModuleRules
 {
-    public MyUnrealProject(ReadOnlyTargetRules Target) : base(Target)
-    {
-        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+	public MyUnrealProject(ReadOnlyTargetRules Target) : base(Target)
+	{
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
-        PrivateDependencyModuleNames.AddRange(new string[] { "Nakama" });
-    }
+		PrivateDependencyModuleNames.AddRange(new string[] { "Itme-platform" });
+	}
 }
 ```
 
-At this point, you are done.  Restart Unreal.  After it compiles things, open Edit->Plugins and scroll to the bottom. If all went well, you should see HeroicLabs.Nakama listed as a plugin.
+At this point, you are done.  Restart Unreal.  After it compiles things, open Edit->Plugins and scroll to the bottom. If all went well, you should see HeroicLabs.Itme-platform listed as a plugin.
 
 ### Setup for Android projects
 
@@ -55,13 +55,13 @@ Android uses a permissions system which determines which platform services the a
 Include nakama header.
 
 ```cpp
-#include "nakama-cpp/Nakama.h"
+#include "nakama-cpp/Itme-platform.h"
 ```
 
 Use nakama namespace.
 
 ```cpp
-using namespace Nakama;
+using namespace Itme-platform;
 ```
 
 The client object is used to execute all logic against the server.
@@ -75,7 +75,7 @@ NClientPtr client = createDefaultClient(parameters);
 ```
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Itme-platform server.
 
 ```cpp
 // Quickly setup a client for a local server.
@@ -111,7 +111,7 @@ To authenticate you should follow our recommended pattern in your client code:
 NClientPtr client = createDefaultClient(NClientParameters());
 ```
 
-&nbsp;&nbsp; 2\. Authenticate a user. By default Nakama will try and create a user if it doesn't exist.
+&nbsp;&nbsp; 2\. Authenticate a user. By default Itme-platform will try and create a user if it doesn't exist.
 
 !!! Tip
     It's good practice to cache a device identifier on Android when it's used to authenticate because they can change with device OS updates.

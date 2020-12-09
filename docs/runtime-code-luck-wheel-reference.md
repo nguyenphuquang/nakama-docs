@@ -1,8 +1,6 @@
-# Function Reference
+# Game Lucky wheel
 
-The code runtime built into the server includes a module with functions to implement various logic and custom behavior. It is easy to define authoritative code and conditions on input received by clients.
-
-## Itme-platform module
+## Lấy phần thưởng
 
 This module contains all the core gameplay APIs, all registration functions used at server startup, utilities for various codecs, and cryptographic primitives.
 

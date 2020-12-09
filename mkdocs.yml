@@ -1,20 +1,20 @@
 # Project information
-site_name: 'Nakama server'
-site_description: 'Documentation for the Nakama realtime and social server for games and apps.'
+site_name: 'Itme platform server'
+site_description: 'Documentation for the Itme-platform realtime and social server for games and apps.'
 site_author: 'Heroic Labs Team & contributors'
 site_url: 'https://heroiclabs.com/'
-edit_uri: 'https://github.com/heroiclabs/nakama-docs/edit/master/docs/'
+edit_uri: 'https://github.com/heroiclabs/itme-platform-docs/edit/master/docs/'
 
 # Deployment
 remote_name: 'origin'
 remote_branch: 'gh-pages'
 
 # Repository
-repo_name: 'heroiclabs/nakama'
-repo_url: 'https://github.com/heroiclabs/nakama'
+repo_name: 'nguyenphuquang/itme-platform'
+repo_url: 'https://github.com/nguyenphuquang/itme-platform'
 
 # Copyright
-copyright: 'Copyright &copy; 2020 Heroic Labs'
+copyright: 'Copyright &copy; 2019 Itme'
 
 # Documentation and theme
 theme:
@@ -32,25 +32,19 @@ theme:
 extra_javascript:
   - 'javascripts/main.js'
 
-extra_css:
-  - 'css/extra.css'
-
 # Options
-plugins:
-  - search:
-      lang:
-        - en
-
 extra:
+  search:
+    language: 'en'
   social:
-    - icon: 'fontawesome/solid/globe'
-      link: 'https://heroiclabs.com'
-    - icon: 'fontawesome/brands/github'
-      link: 'https://github.com/heroiclabs'
-    - icon: 'fontawesome/brands/twitter'
-      link: 'https://twitter.com/heroicdev'
-    - icon: 'fontawesome/brands/linkedin'
-      link: 'https://www.linkedin.com/company/heroic-labs'
+  - type: 'globe'
+    link: 'https://heroiclabs.com'
+  - type: 'github'
+    link: 'https://github.com/heroiclabs'
+  - type: 'twitter'
+    link: 'https://twitter.com/heroicdev'
+  - type: 'linkedin'
+    link: 'https://www.linkedin.com/company/heroic-labs'
 
 # Extensions
 markdown_extensions:
@@ -61,35 +55,35 @@ markdown_extensions:
   - toc:
       permalink: True
   - pymdownx.superfences
-  - pymdownx.tabbed
 
 # Nav menu
 nav:
-- 'Introduction': 'index.md'
-- 'Download': 'nakama-download.md'
-- 'Install and setup':
-  - 'Docker quickstart': 'install-docker-quickstart.md'
-  - 'Binary install': 'install-binary.md'
-  - 'Start server': 'install-start-server.md'
-  - 'Configuration': 'install-configuration.md'
-  - 'Nakama CLI': 'install-server-cli.md'
-  - 'Upgrades': 'install-nakama-upgrade.md'
+- 'Giới thiệu': 'index.md'
+- 'Kết nối với server vnpay': 'vnpay-server.md'
+# - 'Download': 'itme-platform-download.md'
+#  - 'Install and setup':
+#  - 'Docker quickstart': 'install-docker-quickstart.md'
+#  - 'Binary install': 'install-binary.md'
+#  - 'Start server': 'install-start-server.md'
+#  - 'Configuration': 'install-configuration.md'
+#  - 'Itme-platform CLI': 'install-server-cli.md'
+#  - 'Upgrades': 'install-itme-platform-upgrade.md'
 - '.NET/Unity client guide': 'unity-client-guide.md'
-- 'Godot client guide': 'godot-client-guide.md'
 - 'JavaScript client guide': 'javascript-client-guide.md'
 - 'Java/Android client guide': 'android-java-client-guide.md'
+- 'Swift/iOS client guide': 'swift-ios-client-guide.md'
 - 'C++ client guide': 'cpp-client-guide.md'
 - 'Cocos2d-x client guide (C++)': 'cocos2d-x-client-guide.md'
 - 'Cocos2d-x client guide (JavaScript)': 'cocos2d-x-js-client-guide.md'
 - 'Unreal client guide': 'unreal-client-guide.md'
-- 'Defold client guide': 'defold-client-guide.md'
 - 'Authentication': 'authentication.md'
 - 'User accounts': 'user-accounts.md'
-- 'Session': 'session.md'
 - 'Storage Engine':
   - 'Collections': 'storage-collections.md'
   - 'Access controls': 'storage-access-controls.md'
 #  - 'Design patterns': 'storage-design-patterns.md'
+#- 'Thirdparties':
+  # - 'ViettelPay': 'thirparty.md'
 - 'Social':
   - 'Friends': 'social-friends.md'
   - 'Groups and Clans': 'social-groups-clans.md'
@@ -113,13 +107,9 @@ nav:
 #  - 'JavaScript/Lua comparison': 'runtime-javascript-lua-comparison.md'
 #  - 'Lua cheatsheet': 'runtime-lua-cheatsheet.md'
   - 'Function Reference': 'runtime-code-function-reference.md'
-#- 'Nakama enterprise': 'nakama-enterprise.md'
+#- 'Itme-platform enterprise': 'itme-platform-enterprise.md'
 - 'Advanced':
-  - 'Events': 'advanced-events.md'
   - 'Streams': 'advanced-streams.md'
-  - 'TCP or UDP': 'expert-tcp-udp.md'
-  - 'Modelling for Scalability': 'expert-modelling.md'
-  - 'Sessions and Auth': 'expert-auth.md'
 - 'Benchmarks': 'benchmarks.md'
 - 'Deployment':
 #  - 'Production settings': 'deployment-production-settings.md'
@@ -138,12 +128,11 @@ nav:
 #  - 'Inventory management': 'tutorial-inventory-management.md'
 #  - 'Prized leaderboards': 'tutorial-prized-leaderboards.md'
 #- 'Internals':
-#  - 'Server architecture': 'internal-nakama-server-architecture.md'
-#  - 'Social graph engine': 'internal-nakama-social-graph-engine.md'
-#  - 'Message router': 'internal-nakama-message-router.md'
-#  - 'Network protocol': 'internal-nakama-network-protocol.md'
-#  - 'Lua runtime': 'internal-nakama-lua-runtime.md'
+#  - 'Server architecture': 'internal-itme-platform-server-architecture.md'
+#  - 'Social graph engine': 'internal-itme-platform-social-graph-engine.md'
+#  - 'Message router': 'internal-itme-platform-message-router.md'
+#  - 'Network protocol': 'internal-itme-platform-network-protocol.md'
+#  - 'Lua runtime': 'internal-itme-platform-lua-runtime.md'
 #- 'Protocol reference': '#'
 #- 'Release notes': '#'
 - 'Previous versions': 'previous-versions.md'
-

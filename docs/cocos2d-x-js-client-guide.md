@@ -4,7 +4,7 @@ The official cocos2d JavaScript client handles all communication in realtime wit
 
 ## Download
 
-Download latest release from the GitHub <a href="https://github.com/heroiclabs/nakama-cocos2d-x-javascript/releases/latest" target="\_blank">releases page</a>. which contains the Nakama-js module with UMD module loader and polyfill library.
+Download latest release from the GitHub <a href="https://github.com/heroiclabs/nakama-cocos2d-x-javascript/releases/latest" target="\_blank">releases page</a>. which contains the Itme-platform-js module with UMD module loader and polyfill library.
 
 For upgrades you can see changes and enhancements in the <a href="https://github.com/heroiclabs/nakama-cocos2d-x-javascript/blob/master/CHANGELOG.md" target="\_blank">CHANGELOG</a> before you update to newer versions.
 
@@ -30,7 +30,7 @@ The client object is used to execute all logic against the server:
 ```js
 var serverkey = "defaultkey";
 var host = "127.0.0.1";
-var port = "7350";
+var port = 7350;
 var useSSL = false;
 var timeout = 7000; // ms
 
@@ -38,7 +38,7 @@ var client = new nakamajs.Client(serverkey, host, port, useSSL, timeout);
 ```
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and "7350" port to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Itme-platform server.
 
 ```js
 var client = new nakamajs.Client();
@@ -53,7 +53,7 @@ With a client object you can authenticate against the server. You can register o
 
 To authenticate you should follow our recommended pattern in your client code.
 
-By default Nakama will try to create a user if it doesn't exist.
+By default Itme-platform will try to create a user if it doesn't exist.
 
 Use the following code to store the session:
 
@@ -138,10 +138,12 @@ socket.onchannelmessage = function (channelMessage) {
 };
 
 const channelId = "pineapple-pizza-lovers-room";
-const persistence = false;
-const hidden = false;
-
-socket.joinChat(channelId, 1, persistence, hidden).then(
+socket.send({ channel_join: {
+  type: 1, // 1 = room, 2 = Direct Message, 3 = Group
+  target: channelId,
+  persistence: false,
+  hidden: false
+} }).then(
       function(response) {
           cc.log("Successfully joined channel:", response.channel.id);
           sendChatMessage(response.channel.id);
@@ -151,8 +153,13 @@ socket.joinChat(channelId, 1, persistence, hidden).then(
       }
   );
 
-function sendChatMessage(channelId) {
-  socket.writeChatMessage(channelId, {"message": "Pineapple doesn't belong on a pizza!"}).then(
+function sendChatMessage(channel_id) {
+  socket.send({ 
+      channel_message_send: {
+        channel_id: response.channel.id,
+        content: {"message": "Pineapple doesn't belong on a pizza!"}
+      }
+    }).then(
       function(messageAck) {
           cc.log("Successfully sent chat message:", JSON.stringify(messageAck));
       },

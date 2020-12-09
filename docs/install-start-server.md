@@ -1,6 +1,6 @@
 # Start server
 
-You can install Nakama as a binary or with Docker. If you plan to use Docker with development or deployment have a look at the [Docker Quickstart](install-docker-quickstart.md#running-nakama).
+You can install Itme-platform as a binary or with Docker. If you plan to use Docker with development or deployment have a look at the [Docker Quickstart](install-docker-quickstart.md#running-nakama).
 
 With the server downloaded or accessible you can start it. You must first start the database server.
 
@@ -14,7 +14,7 @@ cockroach start --background --insecure --store=path="./cdb-store1/"
 
 This will start CockroachDB in the background, on port `26257` and sets the data directory for the database to the folder "cdb-store1" within the current working directory of the shell environment. For more examples have a look at the [database documentation](https://www.cockroachlabs.com/docs/stable/start-a-local-cluster.html).
 
-## Start Nakama
+## Start Itme-platform
 
 Before you can start the server you must setup the database schema. The schema definition is bundled within the server and can be executed with this command:
 
@@ -26,12 +26,12 @@ If you've configured your database to run with specific connection settings have
 
 When the command runs you'll see logs output to the shell console.
 
-	```
-	{"level":"info","ts":"<sometimestamp>","msg":"Database connection","db":"root@localhost:26257"}
-	{"level":"info","ts":"<sometimestamp>","msg":"Database information","version":"CockroachDB CCL v1.1.5"}
-	{"level":"info","ts":"<sometimestamp>","msg":"Using existing database","name":"nakama"}
-	{"level":"info","ts":"<sometimestamp>","msg":"Successfully applied migration","count":1}
-	```
+```
+{"level":"info","ts":"<sometimestamp>","msg":"Database connection","db":"root@localhost:26257"}
+{"level":"info","ts":"<sometimestamp>","msg":"Database information","version":"CockroachDB CCL v1.1.5"}
+{"level":"info","ts":"<sometimestamp>","msg":"Using existing database","name":"nakama"}
+{"level":"info","ts":"<sometimestamp>","msg":"Successfully applied migration","count":1}
+```
 
 The logs indicate how many migrations were run to update the schema definition in the database to the latest version with the release of the server. You will only need to migrate the server once with each new server release. This command does __not__ need to be run before each server start.
 
@@ -80,13 +80,13 @@ nakama --name "nakama1"
 
 ## Data directory
 
-The `data` directory of Nakama is where Nakama stores various working files. This includes a log folder, Lua modules folder, and more. By default, the `data` directory is created in your current working directory of the shell console.
+The `data` directory of Itme-platform is where Itme-platform stores various working files. This includes a log folder, Lua modules folder, and more. By default, the `data` directory is created in your current working directory of the shell console.
 
 ### Logs
 
-Nakama writes all logs to a file in the data directory. The log file name is the name of the server instance.
+Itme-platform writes all logs to a file in the data directory. The log file name is the name of the server instance.
 
-By default Nakama logs messages with level "INFO", "WARN" and "ERROR". However you can change this:
+By default Itme-platform logs messages with level "INFO", "WARN" and "ERROR". However you can change this:
 
 ```sh
 nakama --logger.level "debug"
@@ -104,10 +104,10 @@ nakama --runtime.path "path/to/modules"
 
 ## Start/join cluster
 
-!!! tip "Nakama Enterprise Only"
-    The following commands are used with Nakama Enterprise. The enterprise version offers multi-server scale out for realtime chat, multiplayer, presence events, notifications, streams, and session management. You can start a cluster locally on your development machine with an [enterprise license](https://heroiclabs.com/nakama-enterprise). The [Managed Cloud](https://heroiclabs.com/managed-cloud) service we offer already runs our enterprise version.
+!!! tip "Itme-platform Enterprise Only"
+    The following commands are used with Itme-platform Enterprise. The enterprise version offers multi-server scale out for realtime chat, multiplayer, presence events, notifications, streams, and session management. You can start a cluster locally on your development machine with an [enterprise license](https://heroiclabs.com/nakama-enterprise). The [Managed Cloud](https://heroiclabs.com/managed-cloud) service we offer already runs our enterprise version.
 
-The clustered version of Nakama server builds in gossip, node awareness, state replication, and multi-node message routing. It uses state of the art distributed systems features to offer a simple scale out model.
+The clustered version of Itme-platform server builds in gossip, node awareness, state replication, and multi-node message routing. It uses state of the art distributed systems features to offer a simple scale out model.
 
 An enterprise server will join a cluster if one is already known to the instance it joins or create a new cluster.
 

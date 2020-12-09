@@ -13,9 +13,9 @@ For upgrades you can see changes and enhancements in the <a href="https://github
 
 ## Setup
 
-When you've downloaded the Nakama C++ archive and extracted it to `NAKAMA_CPP_SDK` folder, you should include it in your project.
+When you've downloaded the Itme-platform C++ archive and extracted it to `NAKAMA_CPP_SDK` folder, you should include it in your project.
 
-We don't recommend to copy Nakama C++ SDK to your project because it's quite big in size (~1 Gb).
+We don't recommend to copy Itme-platform C++ SDK to your project because it's quite big in size (~1 Gb).
 
 ### Setup for Mac and iOS projects
 
@@ -23,7 +23,7 @@ We don't recommend to copy Nakama C++ SDK to your project because it's quite big
 2. Add libs folder in `Build Settings > Library Search Paths`:
     - `NAKAMA_CPP_SDK/libs/ios` - for iOS
     - `NAKAMA_CPP_SDK/libs/mac` - for Mac
-3. Add all `.a` files located in libs folder and `libresolv.9.tbd` to `General > Frameworks, Libraries, and Embedded Content`
+3. Add all `.a` files located in libs folder and `libresolv.9.tbd` in `General > Linked Frameworks and Libraries`
 
 ### Setup for Android projects
 
@@ -40,7 +40,7 @@ $(call import-add-path, NAKAMA_CPP_SDK)
 $(call import-module, nakama-cpp-android)
 ```
 
-#### Initialize Nakama SDK
+#### Initialize Itme-platform SDK
 
 For most NativeActivity projects, if you have an entry point like:
 
@@ -57,7 +57,7 @@ Add include:
 Add the following code at the top of the `android_main` function:
 
 ```cpp
-Nakama::init(state->activity->vm);
+Itme-platform::init(state->activity->vm);
 ```
 
 !!! Note
@@ -73,14 +73,14 @@ Android uses a permissions system which determines which platform services the a
 
 ### Setup for CMake projects
 
-To link Nakama's static lib add following to your `CMakeLists.txt` file:
+To link Itme-platform's static lib add following to your `CMakeLists.txt` file:
 
 ```cmake
 add_subdirectory(NAKAMA_CPP_SDK ${CMAKE_CURRENT_BINARY_DIR}/nakama-cpp)
 target_link_libraries(${APP_NAME} ext_nakama-cpp)
 ```
 
-To link Nakama's shared lib add following to your `CMakeLists.txt` file:
+To link Itme-platform's shared lib add following to your `CMakeLists.txt` file:
 
 ```cmake
 set(NAKAMA_SHARED_LIBRARY TRUE)
@@ -106,7 +106,7 @@ In `Project Settings` add following:
 ### Custom setup
 
 - add define:
-  - `NLOGS_ENABLED` - define it if you want to use Nakama logger. See [Logging](#logging) section
+  - `NLOGS_ENABLED` - define it if you want to use Itme-platform logger. See [Logging](#logging) section
 - add include directory: `$(NAKAMA_CPP_SDK)/include`
 - add link directory: `$(NAKAMA_CPP_SDK)/libs/{platform}/{ABI}`
 - add all libraries for linking from link directory
@@ -120,13 +120,13 @@ For Mac and iOS:
 Include nakama header.
 
 ```cpp
-#include "nakama-cpp/Nakama.h"
+#include "nakama-cpp/Itme-platform.h"
 ```
 
 Use nakama namespace.
 
 ```cpp
-using namespace Nakama;
+using namespace Itme-platform;
 ```
 
 The client object is used to execute all logic against the server.
@@ -142,7 +142,7 @@ NClientPtr client = createDefaultClient(parameters);
 The `createDefaultClient` will create HTTP/1.1 client to use REST API.
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Itme-platform server.
 
 ```cpp
 // Quickly setup a client for a local server.
@@ -173,7 +173,7 @@ To authenticate you should follow our recommended pattern in your client code:
 NClientPtr client = createDefaultClient(NClientParameters());
 ```
 
-&nbsp;&nbsp; 2\. Authenticate a user. By default Nakama will try and create a user if it doesn't exist.
+&nbsp;&nbsp; 2\. Authenticate a user. By default Itme-platform will try and create a user if it doesn't exist.
 
 !!! Tip
     It's good practice to cache a device identifier on Android when it's used to authenticate because they can change with device OS updates.

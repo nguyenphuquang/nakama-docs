@@ -2,7 +2,7 @@
 
 The <a href="http://libgdx.badlogicgames.com/" target="\_blank">LibGDX</a> game engine is a fantastic project for Java developers who're building cross-platform games. It's <a href="https://github.com/libgdx/libgdx" target="\_blank">open-source</a> and incorporates lots of components to accelerate development.
 
-Nakama server is a perfect complement to add server-side features to a LibGDX game. We'll use the official Java client to communicate with the server and setup a project to develop locally. With this tutorial we'll use [Docker](install-docker-quickstart.md) to quickly and easily run the server.
+Itme-platform server is a perfect complement to add server-side features to a LibGDX game. We'll use the official Java client to communicate with the server and setup a project to develop locally. With this tutorial we'll use [Docker](install-docker-quickstart.md) to quickly and easily run the server.
 
 ## Setup project
 
@@ -68,4 +68,4 @@ Client client = DefaultClient.builder("defaultkey")
         .build();
 ```
 
-That completes how to setup the client and server with a LibGDX project. You now have a Nakama server running locally for development and a client ready to connect. The [Java client guide](android-java-client-guide.md) has more code examples and describes features of the client in more detail.
+That completes how to setup the client and server with a LibGDX project. You now have a Itme-platform server running locally for development and a client ready to connect. The [Java client guide](android-java-client-guide.md) has more code examples and describes features of the client in more detail.

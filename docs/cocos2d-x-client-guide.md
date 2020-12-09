@@ -13,13 +13,15 @@ For upgrades you can see changes and enhancements in the <a href="https://github
 
 ## Setup
 
-When you've downloaded the Nakama Cocos2d archive and extracted it to `NAKAMA_COCOS2D_SDK` folder, you should include it in your project.
+When you've downloaded the Itme-platform Cocos2d archive and extracted it to `NAKAMA_COCOS2D_SDK` folder, you should include it in your project.
 
-We don't recommend to copy Nakama Cocos2d SDK to your project because it's quite big in size (~600 Mb).
+We don't recommend to copy Itme-platform Cocos2d SDK to your project because it's quite big in size (~600 Mb).
 
 ### Copy NakamaCocos2d folder
 
 Copy `NakamaCocos2d` folder from `NAKAMA_COCOS2D_SDK` to your `Classes` folder.
+
+Add all files from `NakamaCocos2d` folder to your project.
 
 ### Setup for Mac and iOS projects
 
@@ -27,8 +29,7 @@ Copy `NakamaCocos2d` folder from `NAKAMA_COCOS2D_SDK` to your `Classes` folder.
 2. Add libs folder in `Build Settings > Library Search Paths`:
     - `NAKAMA_COCOS2D_SDK/libs/ios` - for iOS
     - `NAKAMA_COCOS2D_SDK/libs/mac` - for Mac
-3. Add all `.a` files located in libs folder to `General > Frameworks, Libraries, and Embedded Content`
-4. Add `NAKAMA_COCOS2D_SDK/NakamaCocos2d` folder to your XCode project as group (not a reference).
+3. Add `libnakama-cpp.dylib` file located in libs folder to `General > Linked Frameworks and Libraries`
 
 ### Setup for Android projects
 
@@ -55,32 +56,7 @@ Android uses a permissions system which determines which platform services the a
 
 ### Setup for CMake projects
 
-Open for edit your `CMakeLists.txt` file and find following existing code:
-```cmake
-# mark app complie info and libs info
-set(all_code_files
-        ${GAME_HEADER}
-        ${GAME_SOURCE}
-    )
-```
-add next code before:
-```cmake
-# Cocos2d Nakama sources
-list(APPEND GAME_SOURCE
-        Classes/NakamaCocos2d/NCocosWebSocket.cpp
-        Classes/NakamaCocos2d/NCocosHTTP.cpp
-        Classes/NakamaCocos2d/NCocosHelper.cpp
-    )
-# Cocos2d Nakama headers
-list(APPEND GAME_HEADER
-        Classes/NakamaCocos2d/NCocosWebSocket.h
-        Classes/NakamaCocos2d/NCocosHTTP.h
-        Classes/NakamaCocos2d/NCocosLogSink.h
-        Classes/NakamaCocos2d/NCocosHelper.h
-    )
-```
-
-At bottom of your `CMakeLists.txt` file add following:
+Add following to your `CMakeLists.txt` file:
 
 ```cmake
 add_subdirectory(NAKAMA_COCOS2D_SDK ${CMAKE_CURRENT_BINARY_DIR}/nakama-cpp)
@@ -100,7 +76,6 @@ In `Project Settings` add following:
     - `NAKAMA_COCOS2D_SDK/libs/win32/v142` - for VS 2019 x86
     - `NAKAMA_COCOS2D_SDK/libs/win64/v142` - for VS 2019 x64
 3. Add all `.lib` files located in above folder to `Linker > Input > Additional Dependencies`
-4. Add sources from `Classes/NakamaCocos2d` to your Visual Studio project.
 
 ## Usage
 
@@ -113,7 +88,7 @@ Include nakama helper header.
 Initialize logger with debug logging level.
 
 ```cpp
-using namespace Nakama;
+using namespace Itme-platform;
 
 NCocosHelper::init(NLogLevel::Debug);
 ```
@@ -129,7 +104,7 @@ NClientPtr client = NCocosHelper::createDefaultClient(parameters);
 ```
 
 !!! Note
-    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Nakama server.
+    By default the client uses connection settings "127.0.0.1" and 7350 port to connect to a local Itme-platform server.
 
 ```cpp
 // Quickly setup a client for a local server.
@@ -166,7 +141,7 @@ To authenticate you should follow our recommended pattern in your client code:
 NClientPtr client = NCocosHelper::createDefaultClient(NClientParameters());
 ```
 
-&nbsp;&nbsp; 2\. Authenticate a user. By default Nakama will try and create a user if it doesn't exist.
+&nbsp;&nbsp; 2\. Authenticate a user. By default Itme-platform will try and create a user if it doesn't exist.
 
 !!! Tip
     It's good practice to cache a device identifier on Android when it's used to authenticate because they can change with device OS updates.

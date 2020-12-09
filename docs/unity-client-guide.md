@@ -2,7 +2,7 @@
 
 This client is built on the [.NET client](https://github.com/heroiclabs/nakama-dotnet) with extensions for Unity Engine. To work with our Unity client you'll need to install and setup [Unity engine](https://unity3d.com/get-unity/download).
 
-The client is available on the <a href="https://assetstore.unity.com/packages/tools/network/nakama-81338" target="\_blank">Unity Asset Store</a> and also on <a href="https://github.com/heroiclabs/nakama-unity/releases/latest" target="\_blank">GitHub releases</a>. You can download "Nakama.unitypackage" which contains all source code and DLL dependencies required in the client code.
+The client is available on the <a href="https://assetstore.unity.com/packages/tools/network/nakama-81338" target="\_blank">Unity Asset Store</a> and also on <a href="https://github.com/heroiclabs/nakama-unity/releases/latest" target="\_blank">GitHub releases</a>. You can download "Itme-platform.unitypackage" which contains all source code and DLL dependencies required in the client code.
 
 It requires the .NET4.6 scripting runtime version to be set in the editor. Navigate to Edit -> Project Settings -> Player -> Configuration (subheading) to apply it.
 
@@ -13,21 +13,21 @@ For upgrades you can see changes and enhancements in the <a href="https://github
 
 ## Setup
 
-When you've <a href="https://github.com/heroiclabs/nakama-unity/releases/latest" target="\_blank">downloaded</a> the "Nakama.unitypackage" file you should drag or import it into your Unity editor project to install it. In the editor create a new C# script via the Assets menu with "Assets > Create > C# Script" and create a client object.
+When you've <a href="https://github.com/heroiclabs/nakama-unity/releases/latest" target="\_blank">downloaded</a> the "Itme-platform.unitypackage" file you should drag or import it into your Unity editor project to install it. In the editor create a new C# script via the Assets menu with "Assets > Create > C# Script" and create a client object.
 
 The client object is used to interact with the server.
 
 ```csharp
 using System.Collections;
-using Nakama;
+using Itme-platform;
 using UnityEngine;
 
 public class YourGameObject : MonoBehaviour
 {
-    void Start()
-    {
-        var client = new Client("http", "127.0.0.1", 7350, "defaultkey");
-    }
+  void Start()
+  {
+    var client = new Client("http", "127.0.0.1", 7350, "defaultkey");
+  }
 }
 ```
 
@@ -128,7 +128,7 @@ socket.ReceivedChannelMessage += message =>
     Debug.LogFormat("Message content: {0}", message.Content);
 };
 var channel = await socket.JoinChatAsync(RoomName, ChannelType.Room);
-// using Nakama.TinyJson;
+// using Itme-platform.TinyJson;
 var content = new Dictionary<string, string> {{"hello", "world"}}.ToJson();
 var sendAck = await socket.WriteChatMessageAsync(channel, content);
 Debug.Log(sendAck);
@@ -211,7 +211,7 @@ A small example on how to manage a session object with Unity engine and the clie
 ```csharp
 using System.Collections;
 using System.Collections.Generic;
-using Nakama;
+using Itme-platform;
 using UnityEngine;
 
 public class SessionWithPlayerPrefs : MonoBehaviour
@@ -242,6 +242,6 @@ public class SessionWithPlayerPrefs : MonoBehaviour
 }
 ```
 
-A collection of other code examples is available <a href="https://github.com/heroiclabs/nakama-unity/tree/master/Assets/Nakama/Snippets" target="\_blank">here</a>.
+A collection of other code examples is available <a href="https://github.com/heroiclabs/nakama-unity/tree/master/Assets/Itme-platform/Snippets" target="\_blank">here</a>.
 <br>
 <br>

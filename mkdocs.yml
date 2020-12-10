@@ -60,6 +60,7 @@ markdown_extensions:
 nav:
 - 'Giới thiệu': 'index.md'
 - 'Kết nối với server vnpay': 'vnpay-server.md'
+- 'Kết nối với Game Client': 'vnpay-gameclient.md'
 # - 'Download': 'itme-platform-download.md'
 #  - 'Install and setup':
 #  - 'Docker quickstart': 'install-docker-quickstart.md'

@@ -1,9 +1,14 @@
+## Giới thiệu
+- VNPAY game client được cung cấp dưới dạng SDK (iOS & Android SDK)
+- Tài liệu này mô tả cách sử dụng và các hàm SDK cung cấp
+
 ## Kết nối thư viện
 
-Android 
+### Android 
+
 Mở build.gradle thêm implementation files('<path>/GameSDK.aar')
 
-IOS 
+### IOS 
 Vào general -> Frameworks, Libraries, Embedded content
 add GameSDK.framework
 
@@ -30,14 +35,15 @@ val gameController = GameController()
 |cover|url ảnh cover của game|string
 
 Example Code
-```
 Android 
+```
 gameController.getListGame(){ games: List<Game> ->
 	//TODO
 }
 ```
-```
+
 IOS
+```
 gameController.getListGame({ completion: ([Game]?) -> Void in 
 })
 ```
@@ -65,31 +71,39 @@ IOS
 - Response: None
 
 Example Code
-```
+
 Android 
+```
 gameController.startGame(context, url, token)
 ```
-```
+
 IOS
+```
 gameController.startGame(parent: self, url, token)
 ```
 
 #### API ‘setOnMessageReceive'
 
-Dùng để đăng ký remote từ game client
+Đăng ký hàm gọi lại (callback) để gửi thông báo từ game đến app ví VNPAY, sử dụng trong các trường hợp
+
+- Khi người dùng chọn sử dụng Voucher QR quay được.
+- Ngưởi dùng sử dụng Lì xì
+- Các trường hợp giao tiếp khác
 
 - Request: function callback
 - Response: Chuỗi json kiểu string
 
 Example Code
-```
+
 Android 
+```
 gameController.setOnMessageReceive { jsonString ->
 	//TODO
 }
 ```
-```
+
 IOS
+```
 gameController.setOnMessageReceive { jsonString in
 	//TODO
 }

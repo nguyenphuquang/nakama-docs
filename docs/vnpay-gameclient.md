@@ -109,6 +109,11 @@ Mô tả object data trả về
 |use-gift|06|Sử dụng quà khi khách hàng chưa thực hiện KYC
 |use-gift|07|Sử dụng quà khi khách hàng chưa liên kết ngân hàng
 
+Example Json: 
+```
+{ "action": "use-gift", "code": "03" }
+```
+
 #### Phương thức ‘sendMessage'
 
 Dùng để gửi dữ liệu vào game client

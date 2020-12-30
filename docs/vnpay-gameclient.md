@@ -17,13 +17,15 @@ add GameSDK.framework
 GameController sử dụng để kết nối giữa ứng dụng ví VNPay với GameSDK và được khởi tạo sau khi đăng nhập thành công vào màn hình Home của Ví
 
 ```
-val gameController = GameController()
-```
+val gameController = GameController(httpUrl)
 
-#### API ‘getListGame'
+```
+httpUrl: url game server
+
+#### Phương thức ‘getListGame'
 - Dùng lấy danh sách game
-- Request: none
-- Response:  [{Game}]
+- Fields: none
+- Return:  [{Game}]
 
 
 |Field|Description|Type
@@ -47,10 +49,10 @@ IOS
 gameController.getListGame({ completion: ([Game]?) -> Void in 
 })
 ```
-#### API ‘startGame'
+#### Phương thức ‘startGame'
 Dùng để mở 1 game lên
 
-- Request: context, url, token
+- Fields: context, url, token
 
 Android
 
@@ -68,7 +70,7 @@ IOS
 |url|url của game|String
 |token|token của Ví|String
 
-- Response: None
+- Return: None
 
 Example Code
 
@@ -82,7 +84,7 @@ IOS
 gameController.startGame(parent: self, url, token)
 ```
 
-#### API ‘setOnMessageReceive'
+#### Phương thức ‘setOnMessageReceive'
 
 Đăng ký hàm gọi lại (callback) để gửi thông báo từ game đến app ví VNPAY, sử dụng trong các trường hợp
 
@@ -90,8 +92,8 @@ gameController.startGame(parent: self, url, token)
 - Ngưởi dùng sử dụng Lì xì
 - Các trường hợp giao tiếp khác
 
-- Request: function callback
-- Response: Chuỗi json kiểu string
+- Fields: function callback
+- Callback: Chuỗi json kiểu string
 
 Example Code
 
@@ -108,13 +110,24 @@ gameController.setOnMessageReceive { jsonString in
 	//TODO
 }
 ```
+Mô tả object data trả về
+|action|code|Description
+| ------ | ------ | ------ |
+|use-gift|03|Sử dụng quà khi trạng thái ví không hợp lệ (Active A, Active B)
+|use-gift|06|Sử dụng quà khi khách hàng chưa thực hiện KYC
+|use-gift|07|Sử dụng quà khi khách hàng chưa liên kết ngân hàng
 
-#### API ‘sendMessage'
+Example Json: 
+```
+{ "action": "use-gift", "code": "03" }
+```
+
+#### Phương thức ‘sendMessage'
 
 Dùng để gửi dữ liệu vào game client
 
-- Request: Chuỗi json kiểu string
-- Response: None
+- Fields: Chuỗi json kiểu string
+- Return: None
 
 Example Code
 ```

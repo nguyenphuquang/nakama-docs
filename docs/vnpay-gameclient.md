@@ -23,7 +23,7 @@ val gameController = GameController(httpUrl)
 ```
 httpUrl: url game server
 
-#### phương thức ‘getListGame'
+#### Phương thức ‘getListGame'
 - Dùng lấy danh sách game
 - Fields: none
 - Return:  [{Game}]

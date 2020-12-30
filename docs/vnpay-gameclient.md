@@ -105,9 +105,9 @@ gameController.setOnMessageReceive { jsonString in
 Mô tả object data trả về
 |action|code|Description
 | ------ | ------ | ------ |
-|use-gift|03|Sữ dụng quà khi trạng thái ví không hợp lệ (Active A, Active B)
-|use-gift|06|Sữ dụng quà khi khách hàng chưa thực hiện KYC
-|use-gift|07|Sữ dụng quà khi khách hàng chưa liên kết ngân hàng
+|use-gift|03|Sử dụng quà khi trạng thái ví không hợp lệ (Active A, Active B)
+|use-gift|06|Sử dụng quà khi khách hàng chưa thực hiện KYC
+|use-gift|07|Sử dụng quà khi khách hàng chưa liên kết ngân hàng
 
 #### Phương thức ‘sendMessage'
 

@@ -23,7 +23,7 @@ val gameController = GameController(httpUrl)
 ```
 httpUrl: url game server
 
-#### phương thực ‘getListGame'
+#### phương thức ‘getListGame'
 - Dùng lấy danh sách game
 - Fields: none
 - Return:  [{Game}]
@@ -49,7 +49,7 @@ IOS
 gameController.getListGame({ completion: ([Game]?) -> Void in 
 })
 ```
-#### Phương thước ‘startGame'
+#### Phương thức ‘startGame'
 Dùng để mở 1 game lên
 
 - Fields: context, url, token
